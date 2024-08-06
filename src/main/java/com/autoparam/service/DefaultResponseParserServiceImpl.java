@@ -1,0 +1,16 @@
+package com.autoparam.service;
+
+import org.apache.dubbo.rpc.Result;
+
+import java.util.Map;
+
+/**
+ * dubbo响应报文默认处理实现
+ */
+public class DefaultResponseParserServiceImpl implements ResponseParserService {
+
+    @Override
+    public Map parse(Result result) {
+        return (Map) result.getValue();
+    }
+}
