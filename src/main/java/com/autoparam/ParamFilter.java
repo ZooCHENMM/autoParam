@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
+import static com.autoparam.constants.Constants.RESPONSE_FILTER;
+
 @Activate(group = {CommonConstants.PROVIDER}, order = 10000)
 public class ParamFilter implements Filter {
 
@@ -29,12 +31,12 @@ public class ParamFilter implements Filter {
         log.debug(result.getValue().toString());
         // 扩展，用于处理响应
         ResponseParserService responseParserService = ApplicationContextProvider.getApplicationContext().getBean(ResponseParserService.class);
-        Map<String, Object> response = responseParserService.parse(result);
+        Object response = responseParserService.parse(result);
         for (Object argument : invocation.getArguments()) {
             if (argument instanceof Map) {
                 Map map = (Map) argument;
                 // 请求自定义过滤参数
-                Object o = map.get("responseFilter");
+                Object o = map.get(RESPONSE_FILTER);
                 // todo 多种过滤策略
                 if (!(o instanceof Set)) {
                     log.error("responseFilter type is not set, filter is invalid!");

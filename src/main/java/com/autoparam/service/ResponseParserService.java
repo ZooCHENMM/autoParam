@@ -14,5 +14,5 @@ public interface ResponseParserService {
      * @param result dubbo响应
      * @return 业务数据map
      */
-    Map parse(Result result);
+    Object parse(Result result);
 }

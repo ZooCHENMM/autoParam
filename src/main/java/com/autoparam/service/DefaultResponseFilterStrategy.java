@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 public class DefaultResponseFilterStrategy implements ResponseFilterStrategy {
 
     @Override
-    public void filter(Set filter, Map response) {
+    public void filter(Set filter, Object response) {
         filterByRemove(filter, response);
     }
 

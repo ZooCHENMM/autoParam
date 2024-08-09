@@ -2,15 +2,15 @@
   "groups": [
     {
       "name": "autoparam",
-      "type": "com.clabber.autoparam.config.ServerProperties",
-      "sourceType": "com.clabber.autoparam.config.ServerProperties"
+      "type": "com.autoparam.config.ServerProperties",
+      "sourceType": "com.autoparam.config.ServerProperties"
     }
   ],
   "properties": [
     {
       "name": "autoparam.filter-strategy",
       "type": "java.lang.String",
-      "sourceType": "com.clabber.autoparam.config.ServerProperties"
+      "sourceType": "com.autoparam.config.ServerProperties"
     }
   ],
   "hints": []

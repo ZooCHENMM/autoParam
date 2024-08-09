@@ -2,8 +2,6 @@ package com.autoparam.config;
 
 import com.autoparam.ApplicationContextProvider;
 import com.autoparam.service.*;
-import com.clabber.autoparam.*;
-import com.clabber.autoparam.service.*;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -30,13 +28,19 @@ public class AutoParamConfig {
     }
 
     @Bean
-    public ResponseFilterService responseFilterService(){
+    public ResponseFilterService responseFilterService() {
         return new ResponseFilterService();
     }
 
     @Bean(name = "default")
-    public ResponseFilterStrategy responseFilterStrategy(){
+    public ResponseFilterStrategy responseFilterStrategy() {
         return new DefaultResponseFilterStrategy();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public RequestSingle2ListService requestSingle2ListService() {
+        return new DefaultRequestSingle2ListServiceImpl();
     }
 
 }

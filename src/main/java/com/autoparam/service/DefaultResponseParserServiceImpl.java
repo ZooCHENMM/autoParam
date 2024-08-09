@@ -10,7 +10,7 @@ import java.util.Map;
 public class DefaultResponseParserServiceImpl implements ResponseParserService {
 
     @Override
-    public Map parse(Result result) {
-        return (Map) result.getValue();
+    public Object parse(Result result) {
+        return result.getValue();
     }
 }
