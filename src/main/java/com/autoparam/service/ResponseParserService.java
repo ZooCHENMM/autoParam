@@ -1,6 +1,6 @@
 package com.autoparam.service;
 
-import org.apache.dubbo.rpc.Result;
+import com.alibaba.dubbo.rpc.Result;
 
 import java.util.Map;
 

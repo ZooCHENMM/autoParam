@@ -1,16 +1,11 @@
 package com.autoparam;
 
+import com.alibaba.dubbo.common.extension.Activate;
+import com.alibaba.dubbo.rpc.*;
 import com.autoparam.config.ServerProperties;
 import com.autoparam.service.ResponseFilterService;
 import com.autoparam.service.ResponseFilterStrategy;
 import com.autoparam.service.ResponseParserService;
-import org.apache.dubbo.common.constants.CommonConstants;
-import org.apache.dubbo.common.extension.Activate;
-import org.apache.dubbo.rpc.Filter;
-import org.apache.dubbo.rpc.Invoker;
-import org.apache.dubbo.rpc.Invocation;
-import org.apache.dubbo.rpc.Result;
-import org.apache.dubbo.rpc.RpcException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,7 +13,7 @@ import java.util.*;
 
 import static com.autoparam.constants.Constants.RESPONSE_FILTER;
 
-@Activate(group = {CommonConstants.PROVIDER}, order = 10000)
+@Activate( order = 10000)
 public class ParamFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(ParamFilter.class);
@@ -47,7 +42,7 @@ public class ParamFilter implements Filter {
                 String filterStrategy = ApplicationContextProvider.getApplicationContext().getBean(ServerProperties.class).getFilterStrategy();
                 ResponseFilterStrategy responseFilterStrategy = ApplicationContextProvider.getApplicationContext().getBean(filterStrategy == null ? "default" : filterStrategy, ResponseFilterStrategy.class);
                 responseFilterService.filter(filter, response, responseFilterStrategy);
-                result.setValue(response);
+                ((RpcResult)result).setValue(response);
             }
         }
         log.debug("========== after filter==========");

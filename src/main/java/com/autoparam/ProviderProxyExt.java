@@ -1,30 +1,26 @@
 package com.autoparam;
 
+import com.alibaba.dubbo.common.URL;
+import com.alibaba.dubbo.common.bytecode.Wrapper;
+import com.alibaba.dubbo.common.extension.Adaptive;
+import com.alibaba.dubbo.rpc.Invoker;
+import com.alibaba.dubbo.rpc.RpcException;
+import com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker;
+import com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory;
+import com.alibaba.dubbo.rpc.proxy.jdk.JdkProxyFactory;
 import com.autoparam.service.RequestSingle2ListService;
-import org.apache.dubbo.common.URL;
-import org.apache.dubbo.common.bytecode.Wrapper;
-import org.apache.dubbo.common.extension.Adaptive;
-import org.apache.dubbo.common.logger.ErrorTypeAwareLogger;
-import org.apache.dubbo.common.logger.LoggerFactory;
-import org.apache.dubbo.rpc.Invoker;
-import org.apache.dubbo.rpc.RpcException;
-import org.apache.dubbo.rpc.proxy.AbstractProxyInvoker;
-import org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory;
-import org.apache.dubbo.rpc.proxy.jdk.JdkProxyFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static com.autoparam.constants.Constants.SINGLE_TO_LIST;
-import static org.apache.dubbo.common.constants.LoggerCodeConstants.PROXY_FAILED;
 
 @Adaptive
 public class ProviderProxyExt extends JavassistProxyFactory {
 
-    private static final ErrorTypeAwareLogger logger =
-            LoggerFactory.getErrorTypeAwareLogger(ProviderProxyExt.class);
+    private static final Logger logger = LoggerFactory.getLogger(ParamFilter.class);
+
     private final JdkProxyFactory jdkProxyFactory = new JdkProxyFactory();
 
     @Override
@@ -58,9 +54,7 @@ public class ProviderProxyExt extends JavassistProxyFactory {
             // try fall back to JDK proxy factory
             try {
                 Invoker<T> invoker = jdkProxyFactory.getInvoker(proxy, type, url);
-                logger.error(
-                        PROXY_FAILED,
-                        "",
+                logger.error("",
                         "",
                         "Failed to generate invoker by Javassist failed. Fallback to use JDK proxy success. "
                                 + "Interfaces: " + type,
@@ -69,14 +63,12 @@ public class ProviderProxyExt extends JavassistProxyFactory {
                 return invoker;
             } catch (Throwable fromJdk) {
                 logger.error(
-                        PROXY_FAILED,
                         "",
                         "",
                         "Failed to generate invoker by Javassist failed. Fallback to use JDK proxy is also failed. "
                                 + "Interfaces: " + type + " Javassist Error.",
                         fromJavassist);
                 logger.error(
-                        PROXY_FAILED,
                         "",
                         "",
                         "Failed to generate invoker by Javassist failed. Fallback to use JDK proxy is also failed. "

@@ -34,9 +34,9 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.apache.dubbo</groupId>
+            <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
-            <version>3.2.14</version>
+            <version>2.5.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
