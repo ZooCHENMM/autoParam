@@ -3,6 +3,7 @@ package com.autoparam;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
 import com.autoparam.config.ServerProperties;
+import com.autoparam.service.RequestFilterService;
 import com.autoparam.service.ResponseFilterService;
 import com.autoparam.service.ResponseFilterStrategy;
 import com.autoparam.service.ResponseParserService;
@@ -13,7 +14,7 @@ import java.util.*;
 
 import static com.autoparam.constants.Constants.RESPONSE_FILTER;
 
-@Activate( order = 10000)
+@Activate(order = 10000)
 public class ParamFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(ParamFilter.class);
@@ -27,24 +28,14 @@ public class ParamFilter implements Filter {
         // 扩展，用于处理响应
         ResponseParserService responseParserService = ApplicationContextProvider.getApplicationContext().getBean(ResponseParserService.class);
         Object response = responseParserService.parse(result);
-        for (Object argument : invocation.getArguments()) {
-            if (argument instanceof Map) {
-                Map map = (Map) argument;
-                // 请求自定义过滤参数
-                Object o = map.get(RESPONSE_FILTER);
-                // todo 多种过滤策略
-                if (!(o instanceof Set)) {
-                    log.error("responseFilter type is not set, filter is invalid!");
-                    continue;
-                }
-                Set filter = (Set) o;
-                ResponseFilterService responseFilterService = ApplicationContextProvider.getApplicationContext().getBean(ResponseFilterService.class);
-                String filterStrategy = ApplicationContextProvider.getApplicationContext().getBean(ServerProperties.class).getFilterStrategy();
-                ResponseFilterStrategy responseFilterStrategy = ApplicationContextProvider.getApplicationContext().getBean(filterStrategy == null ? "default" : filterStrategy, ResponseFilterStrategy.class);
-                responseFilterService.filter(filter, response, responseFilterStrategy);
-                ((RpcResult)result).setValue(response);
-            }
-        }
+        RequestFilterService requestFilterService = ApplicationContextProvider.getApplicationContext().getBean(RequestFilterService.class);
+        Set<String> filter = requestFilterService.getFilterParams(invocation);
+        ResponseFilterService responseFilterService = ApplicationContextProvider.getApplicationContext().getBean(ResponseFilterService.class);
+        String filterStrategy = ApplicationContextProvider.getApplicationContext().getBean(ServerProperties.class).getFilterStrategy();
+        ResponseFilterStrategy responseFilterStrategy = ApplicationContextProvider.getApplicationContext().getBean(filterStrategy == null ? "default" : filterStrategy, ResponseFilterStrategy.class);
+        responseFilterService.filter(filter, response, responseFilterStrategy);
+        ((RpcResult) result).setValue(response);
+
         log.debug("========== after filter==========");
         // after filter ...
         log.debug(result.getValue().toString());

@@ -43,4 +43,9 @@ public class AutoParamConfig {
         return new DefaultRequestSingle2ListServiceImpl();
     }
 
+    @Bean
+    @ConditionalOnMissingBean
+    public RequestFilterService requestFilterService() {
+        return new DefaultRequestFilterServiceImpl();
+    }
 }
