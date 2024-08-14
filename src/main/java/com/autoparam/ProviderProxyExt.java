@@ -1,14 +1,14 @@
 package com.autoparam;
 
-import com.alibaba.dubbo.common.URL;
-import com.alibaba.dubbo.common.bytecode.Wrapper;
-import com.alibaba.dubbo.common.extension.Adaptive;
-import com.alibaba.dubbo.rpc.Invoker;
-import com.alibaba.dubbo.rpc.RpcException;
-import com.alibaba.dubbo.rpc.proxy.AbstractProxyInvoker;
-import com.alibaba.dubbo.rpc.proxy.javassist.JavassistProxyFactory;
-import com.alibaba.dubbo.rpc.proxy.jdk.JdkProxyFactory;
 import com.autoparam.service.RequestSingle2ListService;
+import org.apache.dubbo.common.URL;
+import org.apache.dubbo.common.bytecode.Wrapper;
+import org.apache.dubbo.common.extension.Adaptive;
+import org.apache.dubbo.rpc.Invoker;
+import org.apache.dubbo.rpc.RpcException;
+import org.apache.dubbo.rpc.proxy.AbstractProxyInvoker;
+import org.apache.dubbo.rpc.proxy.javassist.JavassistProxyFactory;
+import org.apache.dubbo.rpc.proxy.jdk.JdkProxyFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;

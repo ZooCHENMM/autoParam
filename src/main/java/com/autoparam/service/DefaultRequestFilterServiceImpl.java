@@ -1,6 +1,6 @@
 package com.autoparam.service;
 
-import com.alibaba.dubbo.rpc.Invocation;
+import org.apache.dubbo.rpc.Invocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

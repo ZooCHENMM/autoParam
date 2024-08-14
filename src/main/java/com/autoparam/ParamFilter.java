@@ -1,8 +1,7 @@
 package com.autoparam;
 
-import com.alibaba.dubbo.common.Constants;
-import com.alibaba.dubbo.common.extension.Activate;
-import com.alibaba.dubbo.rpc.*;
+import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.rpc.*;
 import com.autoparam.config.ServerProperties;
 import com.autoparam.service.RequestFilterService;
 import com.autoparam.service.ResponseFilterService;
@@ -15,7 +14,7 @@ import java.util.*;
 
 import static com.autoparam.constants.Constants.RESPONSE_FILTER;
 
-@Activate(group = Constants.PROVIDER, order = 10000)
+@Activate(group = "provider", order = 10000)
 public class ParamFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(ParamFilter.class);
@@ -35,7 +34,7 @@ public class ParamFilter implements Filter {
         String filterStrategy = ApplicationContextProvider.getApplicationContext().getBean(ServerProperties.class).getFilterStrategy();
         ResponseFilterStrategy responseFilterStrategy = ApplicationContextProvider.getApplicationContext().getBean(filterStrategy == null ? "default" : filterStrategy, ResponseFilterStrategy.class);
         responseFilterService.filter(filter, response, responseFilterStrategy);
-        ((RpcResult) result).setValue(response);
+        result.setValue(response);
 
         log.debug("========== after filter==========");
         // after filter ...

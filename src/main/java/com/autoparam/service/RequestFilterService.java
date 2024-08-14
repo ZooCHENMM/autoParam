@@ -1,6 +1,6 @@
 package com.autoparam.service;
 
-import com.alibaba.dubbo.rpc.Invocation;
+import org.apache.dubbo.rpc.Invocation;
 
 import java.util.Set;
 
