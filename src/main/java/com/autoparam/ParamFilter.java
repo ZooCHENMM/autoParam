@@ -1,5 +1,6 @@
 package com.autoparam;
 
+import com.alibaba.dubbo.common.Constants;
 import com.alibaba.dubbo.common.extension.Activate;
 import com.alibaba.dubbo.rpc.*;
 import com.autoparam.config.ServerProperties;
@@ -14,7 +15,7 @@ import java.util.*;
 
 import static com.autoparam.constants.Constants.RESPONSE_FILTER;
 
-@Activate(order = 10000)
+@Activate(group = Constants.PROVIDER, order = 10000)
 public class ParamFilter implements Filter {
 
     private static final Logger log = LoggerFactory.getLogger(ParamFilter.class);
