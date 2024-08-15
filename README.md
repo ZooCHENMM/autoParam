@@ -20,4 +20,4 @@
 
 
 可能的问题：
-1.响应参数过滤不生效，原因可能是dubbo版本不兼容。本starter适用2.7.0以上版本dubbo
+1.响应参数过滤不生效，原因可能是dubbo版本不兼容，原因是低版本包名为com.alibaba，而高版本为org.apache。本starter适用3.0.0以上版本dubbo
