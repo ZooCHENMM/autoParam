@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.autoparam</groupId>
-    <artifactId>autoParam-spring-boot-starter</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <artifactId>autoParam</artifactId>
+    <version>1.7-SNAPSHOT</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -16,12 +16,6 @@
 
 
     <dependencies>
-        <!--包含自动配置的代码-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <version>2.3.1.RELEASE</version>
-        </dependency>
         <dependency>
             <groupId>org.apache.dubbo</groupId>
             <artifactId>dubbo</artifactId>

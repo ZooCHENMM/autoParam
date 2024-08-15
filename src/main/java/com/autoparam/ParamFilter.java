@@ -1,21 +1,25 @@
 package com.autoparam;
 
 import org.apache.dubbo.common.extension.Activate;
+import org.apache.dubbo.common.extension.ExtensionLoader;
 import org.apache.dubbo.rpc.*;
-import com.autoparam.config.ServerProperties;
-import com.autoparam.service.RequestFilterService;
-import com.autoparam.service.ResponseFilterService;
-import com.autoparam.service.ResponseFilterStrategy;
-import com.autoparam.service.ResponseParserService;
+import com.autoparam.service.request.filter.RequestFilterService;
+import com.autoparam.service.response.filter.ResponseFilterService;
+import com.autoparam.service.response.filter.ResponseFilterStrategy;
+import com.autoparam.service.response.parser.ResponseParserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
-import static com.autoparam.constants.Constants.RESPONSE_FILTER;
-
 @Activate(group = "provider", order = 10000)
 public class ParamFilter implements Filter {
+
+    private final ResponseFilterService responseFilterService;
+
+    public ParamFilter() {
+        this.responseFilterService = new ResponseFilterService();
+    }
 
     private static final Logger log = LoggerFactory.getLogger(ParamFilter.class);
 
@@ -26,13 +30,11 @@ public class ParamFilter implements Filter {
         log.debug("========== before filter==========");
         log.debug(result.getValue().toString());
         // 扩展，用于处理响应
-        ResponseParserService responseParserService = ApplicationContextProvider.getApplicationContext().getBean(ResponseParserService.class);
+        ResponseParserService responseParserService = ExtensionLoader.getExtensionLoader(ResponseParserService.class).getAdaptiveExtension();
         Object response = responseParserService.parse(result);
-        RequestFilterService requestFilterService = ApplicationContextProvider.getApplicationContext().getBean(RequestFilterService.class);
+        RequestFilterService requestFilterService = ExtensionLoader.getExtensionLoader(RequestFilterService.class).getAdaptiveExtension();
         Set<String> filter = requestFilterService.getFilterParams(invocation);
-        ResponseFilterService responseFilterService = ApplicationContextProvider.getApplicationContext().getBean(ResponseFilterService.class);
-        String filterStrategy = ApplicationContextProvider.getApplicationContext().getBean(ServerProperties.class).getFilterStrategy();
-        ResponseFilterStrategy responseFilterStrategy = ApplicationContextProvider.getApplicationContext().getBean(filterStrategy == null ? "default" : filterStrategy, ResponseFilterStrategy.class);
+        ResponseFilterStrategy responseFilterStrategy = ExtensionLoader.getExtensionLoader(ResponseFilterStrategy.class).getAdaptiveExtension();
         responseFilterService.filter(filter, response, responseFilterStrategy);
         result.setValue(response);
 

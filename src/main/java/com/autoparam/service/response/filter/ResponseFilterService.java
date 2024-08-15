@@ -1,6 +1,5 @@
-package com.autoparam.service;
+package com.autoparam.service.response.filter;
 
-import java.util.Map;
 import java.util.Set;
 
 public class ResponseFilterService {

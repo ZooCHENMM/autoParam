@@ -1,6 +1,8 @@
-package com.autoparam.service;
+package com.autoparam.service.impl;
 
 import com.autoparam.constants.Constants;
+import com.autoparam.service.request.list.RequestSingle2ListService;
+import org.apache.dubbo.common.extension.Adaptive;
 import org.springframework.util.CollectionUtils;
 
 import java.util.*;
@@ -8,6 +10,7 @@ import java.util.stream.Collectors;
 
 import static com.autoparam.constants.Constants.SINGLE_TO_LIST;
 
+@Adaptive
 public class DefaultRequestSingle2ListServiceImpl implements RequestSingle2ListService {
 
     @Override

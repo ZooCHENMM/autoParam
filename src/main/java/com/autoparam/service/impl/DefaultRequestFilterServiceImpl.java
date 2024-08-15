@@ -1,5 +1,7 @@
-package com.autoparam.service;
+package com.autoparam.service.impl;
 
+import com.autoparam.service.request.filter.RequestFilterService;
+import org.apache.dubbo.common.extension.Adaptive;
 import org.apache.dubbo.rpc.Invocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +12,7 @@ import java.util.Set;
 
 import static com.autoparam.constants.Constants.RESPONSE_FILTER;
 
+@Adaptive
 public class DefaultRequestFilterServiceImpl implements RequestFilterService {
 
     private static final Logger log = LoggerFactory.getLogger(DefaultRequestFilterServiceImpl.class);

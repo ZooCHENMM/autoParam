@@ -1,10 +1,13 @@
-package com.autoparam.service;
+package com.autoparam.service.impl;
 
 import com.autoparam.constants.Constants;
+import com.autoparam.service.response.filter.ResponseFilterStrategy;
+import org.apache.dubbo.common.extension.Adaptive;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Adaptive
 public class DefaultResponseFilterStrategy implements ResponseFilterStrategy {
 
     @Override
