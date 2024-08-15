@@ -9,6 +9,7 @@
 2.前提条件：
 2.1.使用dubbo进行远程调用
 2.2.spring作为服务端框架
+若未使用spring框架，或者在spring框架做了二次开发，请使用spi分支，spi分支的bean注入使用了dubbo的spi和adaptive机制，更加通用
 
 3.使用说明
 3.1 引入组件
