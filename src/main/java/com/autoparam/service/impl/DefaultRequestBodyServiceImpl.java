@@ -20,7 +20,14 @@ public class DefaultRequestBodyServiceImpl implements RequestBodyService {
     }
 
     @Override
-    public String getBodyName(Object[] arguments) {
-        return "body";
+    public Object[] rebulid(Object[] arguments, Object body) {
+        for (Object argument : arguments) {
+            if (argument instanceof Map) {
+                Map map = (Map) argument;
+                map.put("body", body);
+            }
+        }
+        return arguments;
     }
+
 }

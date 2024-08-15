@@ -26,7 +26,7 @@ public class DefaultRequestSingle2ListServiceImpl implements RequestSingle2ListS
         List<Object[]> request = new ArrayList<>();
         Map o = requestBodyService.getRequestBody(arguments);
         if (o.containsKey(SINGLE_TO_LIST)) {
-            Map<String, List> sigle2ListMap = (Map) o.get(SINGLE_TO_LIST);
+            Map<String, List> sigle2ListMap = (Map)o.get(SINGLE_TO_LIST);
             return doHandle(arguments, sigle2ListMap);
         }
         return request;
@@ -45,10 +45,9 @@ public class DefaultRequestSingle2ListServiceImpl implements RequestSingle2ListS
             keys.forEach(key -> {
                 String[] par = key.split(Constants.MAP_FIRST_SPLIT);
                 List values = sigle2ListMap.get(key);
-                String boduName = requestBodyService.getBodyName(temp);
                 for (Object o : temp) {
-                    Map body = requestBodyService.getRequestBody(temp);
-                    body.put("body", paramReplace(o, par, 0, values, finalI));
+                    // 业务参数被替换后，需重新组装报文
+                    requestBodyService.rebulid(temp, paramReplace(o, par, 0, values, finalI));
                 }
             });
             result.add(temp);

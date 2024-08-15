@@ -2,7 +2,6 @@ package com.autoparam.service.request;
 
 import org.apache.dubbo.common.extension.Adaptive;
 import org.apache.dubbo.common.extension.SPI;
-import org.apache.dubbo.rpc.Invocation;
 
 import java.util.Map;
 
@@ -12,5 +11,5 @@ public interface RequestBodyService {
     Map getRequestBody(Object[] arguments);
 
     @Adaptive
-    String getBodyName(Object[] arguments);
+    Object[]  rebulid(Object[] arguments, Object body);
 }
